@@ -141,7 +141,7 @@
 			<span class="d-none d-md-block dropdown-toggle ps-2" th:text="${#authentication.getPrincipal().getUsername()}">Guest</span>
           </a><!-- End Profile Iamge Icon -->
 
-          <a class="nav-link nav-profile d-flex align-items-center pe-0" th:if="${not employeeUser != null}" href="#" data-bs-toggle="dropdown">
+          <a class="nav-link nav-profile d-flex align-items-center pe-0" th:if="${employeeUser == null}" href="#" data-bs-toggle="dropdown">
 			<img th:src="@{'assets/img/man_user_man.png'}" class="rounded-circle" width="40" height="40" alt="imge">           
 			<span class="d-none d-md-block dropdown-toggle ps-2" th:text="${#authentication.getPrincipal().getUsername()}">Guest</span>
           </a>
@@ -446,7 +446,7 @@
 					</div>
 					<div class="form-group">
                         <label for="date" class="col-form-label">Date:</label>
-		                <input type="date" class="form-control" id="date" name="date">
+		                <input type="date" class="form-control" id="date" name="date" required>
 			        </div>
 		            <div class="form-group">
                         <label for="status" class="col-form-label">Status:</label>
@@ -503,7 +503,7 @@
 					</div>
 					<div class="form-group">
                         <label for="date" class="col-form-label">Date:</label>
-		                <input type="date" class="form-control" id="dateEdit" name="date">
+		                <input type="date" class="form-control" id="dateEdit" name="date" required>
 			        </div>
 		            <div class="form-group">
                         <label for="status" class="col-form-label">Status:</label>
@@ -566,15 +566,15 @@
 			        </div>
 			        <div class="form-group">
 			            <label for="email" class="col-form-label">Email:</label>
-		                <input type="email" class="form-control" id="email" name="email">
+		                <input type="email" class="form-control" id="email" name="email" required>
 			        </div>
 					<div class="form-group">
 			            <label for="phone" class="col-form-label">Phone:</label>
-		                <input type="tel" class="form-control" id="phone" name="phone">
+		                <input type="tel" class="form-control" id="phone" name="phone" required>
 			        </div>
 					<div class="form-group">
 			            <label for="resume" class="col-form-label">Resume:</label>
-						<input type="file" name="resumeFile" id="resume" accept=".pdf">
+						<input type="file" name="resumeFile" id="resume" accept=".pdf" required>
 			        </div>			        			        			        
 					<div class="form-group">
 			            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -612,11 +612,11 @@
 			        </div>
 			        <div class="form-group">
 			            <label for="email" class="col-form-label">Email:</label>
-		                <input type="email" class="form-control" id="emailEdit" name="email">
+		                <input type="email" class="form-control" id="emailEdit" name="email" required>
 			        </div>
 					<div class="form-group">
 			            <label for="phone" class="col-form-label">Phone:</label>
-		                <input type="tel" class="form-control" id="phoneEdit" name="phone">
+		                <input type="tel" class="form-control" id="phoneEdit" name="phone" required>
 			        </div>
 					<div class="form-group">
 			            <label for="resume" class="col-form-label">Resume:</label>

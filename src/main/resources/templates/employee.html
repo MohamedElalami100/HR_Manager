@@ -143,7 +143,7 @@
             <span class="d-none d-md-block dropdown-toggle ps-2" th:text="${#authentication.getPrincipal().getUsername()}">Guest</span>
           </a><!-- End Profile Iamge Icon -->
  
-           <a class="nav-link nav-profile d-flex align-items-center pe-0" th:if="${not employeeUser != null}" href="#" data-bs-toggle="dropdown">
+           <a class="nav-link nav-profile d-flex align-items-center pe-0" th:if="${employeeUser == null}" href="#" data-bs-toggle="dropdown">
 			<img th:src="@{'assets/img/man_user_man.png'}" class="rounded-circle" width="40" height="40" alt="imge">           
 			<span class="d-none d-md-block dropdown-toggle ps-2" th:text="${#authentication.getPrincipal().getUsername()}">Guest</span>
           </a>         
@@ -419,7 +419,7 @@
 			                    </div>
 			                    <div class="form-group">
 			                        <label for="socialSecurityNumber" class="col-form-label">Social Security Number:</label>
-			                        <input type="text" class="form-control" id="socialSecurityNumber" name="socialSecurityNumber">
+			                        <input type="text" class="form-control" id="socialSecurityNumber" name="socialSecurityNumber" required>
 			                    </div>
 								<div class="form-group">
 								    <label for="gender" class="col-form-label">Gender:</label>
@@ -430,40 +430,40 @@
 								</div>
 			                    <div class="form-group">
 			                        <label for="maritalStatus" class="col-form-label">Marital Status:</label>
-								    <select class="form-control" id="maritalStatus" name="maritalStatus">
+								    <select class="form-control" id="maritalStatus" name="maritalStatus" required>
 								        <option value="Single">Single</option>
 								        <option value="Married">Married</option>
 								    </select>                    
 								</div>
 			                    <div class="form-group">
 			                        <label for="dateOfBirth" class="col-form-label">Date of Birth:</label>
-			                        <input type="date" class="form-control" id="dateOfBirth" name="dateOfBirth" >
+			                        <input type="date" class="form-control" id="dateOfBirth" name="dateOfBirth" required>
 			                    </div>
 			                    <div class="form-group">
 			                        <label for="photo" class="col-form-label">Photo:</label>
-								    <input type="file" name="photoFile" accept="image/*" id="photo"/>
+								    <input type="file" name="photoFile" accept="image/*" id="photo" required/>
 			                    </div>
 							</td>
 							<td width="50%">							               
 			                    <div class="form-group">
 			                        <label for="city" class="col-form-label">City:</label>
-			                        <input type="text" class="form-control" id="city" name="city">
+			                        <input type="text" class="form-control" id="city" name="city" required>
 			                    </div>
 			                    <div class="form-group">
 			                        <label for="address" class="col-form-label">Address:</label>
-			                        <input type="text" class="form-control" id="address" name="address">
+			                        <input type="text" class="form-control" id="address" name="address" required>
 			                    </div>
 			                    <div class="form-group">
 			                        <label for="phone" class="col-form-label">Phone:</label>
-			                        <input type="tel" class="form-control" id="phone" name="phone">
+			                        <input type="tel" class="form-control" id="phone" name="phone" required>
 			                    </div>
 			                    <div class="form-group">
 			                        <label for="mobile" class="col-form-label">Mobile:</label>
-			                        <input type="tel" class="form-control" id="mobile" name="mobile">
+			                        <input type="tel" class="form-control" id="mobile" name="mobile" required>
 			                    </div>
 			                    <div class="form-group">
 			                        <label for="email" class="col-form-label">Email:</label>
-			                        <input type="email" class="form-control" id="email" name="email">
+			                        <input type="email" class="form-control" id="email" name="email" required>
 			                    </div>
 			                    <div class="form-group">
 			                        <label for="hireDate" class="col-form-label">Hire Date:</label>
@@ -529,7 +529,7 @@
 			                    </div>
 			                    <div class="form-group">
 			                        <label for="socialSecurityNumber" class="col-form-label">Social Security Number:</label>
-			                        <input type="text" class="form-control" id="socialSecurityNumberEdit" name="socialSecurityNumber">
+			                        <input type="text" class="form-control" id="socialSecurityNumberEdit" name="socialSecurityNumber" required>
 			                    </div>
 								<div class="form-group">
 								    <label for="gender" class="col-form-label">Gender:</label>
@@ -540,14 +540,14 @@
 								</div>
 			                    <div class="form-group">
 			                        <label for="maritalStatus" class="col-form-label">Marital Status:</label>
-								    <select class="form-control" id="maritalStatusEdit" name="maritalStatus">
+								    <select class="form-control" id="maritalStatusEdit" name="maritalStatus" required>
 								        <option value="Single">Single</option>
 								        <option value="Married">Married</option>
 								    </select>                    
 								</div>
 			                    <div class="form-group">
 			                        <label for="dateOfBirth" class="col-form-label">Date of Birth:</label>
-			                        <input type="date" class="form-control" id="dateOfBirthEdit" name="dateOfBirth">
+			                        <input type="date" class="form-control" id="dateOfBirthEdit" name="dateOfBirth" required>
 			                    </div>
 						        <div class="form-group">
 			                        <label for="photo" class="col-form-label">Photo:</label>
@@ -558,23 +558,23 @@
 							<td width="50%">
 								<div class="form-group">
 			                        <label for="city" class="col-form-label">City:</label>
-			                        <input type="text" class="form-control" id="cityEdit" name="city">
+			                        <input type="text" class="form-control" id="cityEdit" name="city" required>
 			                    </div>
 			                    <div class="form-group">
 			                        <label for="address" class="col-form-label">Address:</label>
-			                        <input type="text" class="form-control" id="addressEdit" name="address">
+			                        <input type="text" class="form-control" id="addressEdit" name="address" required>
 			                    </div>
 			                    <div class="form-group">
 			                        <label for="phone" class="col-form-label">Phone:</label>
-			                        <input type="tel" class="form-control" id="phoneEdit" name="phone">
+			                        <input type="tel" class="form-control" id="phoneEdit" name="phone" required>
 			                    </div>
 			                    <div class="form-group">
 			                        <label for="mobile" class="col-form-label">Mobile:</label>
-			                        <input type="tel" class="form-control" id="mobileEdit" name="mobile">
+			                        <input type="tel" class="form-control" id="mobileEdit" name="mobile" required>
 			                    </div>
 			                    <div class="form-group">
 			                        <label for="email" class="col-form-label">Email:</label>
-			                        <input type="email" class="form-control" id="emailEdit" name="email">
+			                        <input type="email" class="form-control" id="emailEdit" name="email" required>
 			                    </div>
 			                    <div class="form-group">
 			                        <label for="hireDate" class="col-form-label">Hire Date:</label>

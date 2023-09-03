@@ -8,8 +8,7 @@ $('document').ready(function(){
 		$.get(href, function(payment, status){
 			$('#idEdit').val(payment.id);
 			$('#employeeEdit').val(payment.employee.id);
-			$('#dateEdit').val(payment.date?.substring(0,8) +
-				 payment.date?.substring(11,13));
+			$('#dateEdit').val(payment.date?.substring(0,10));
 			$('#amountEdit').val(payment.amount);
 		});
 		

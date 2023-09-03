@@ -142,7 +142,7 @@
 			<span class="d-none d-md-block dropdown-toggle ps-2" th:text="${#authentication.getPrincipal().getUsername()}">Guest</span>
           </a><!-- End Profile Iamge Icon -->
 
-          <a class="nav-link nav-profile d-flex align-items-center pe-0" th:if="${not employeeUser != null}" href="#" data-bs-toggle="dropdown">
+          <a class="nav-link nav-profile d-flex align-items-center pe-0" th:if="${employeeUser == null}"  href="#" data-bs-toggle="dropdown">
 			<img th:src="@{'assets/img/man_user_man.png'}" class="rounded-circle" width="40" height="40" alt="imge">           
 			<span class="d-none d-md-block dropdown-toggle ps-2" th:text="${#authentication.getPrincipal().getUsername()}">Guest</span>
           </a>

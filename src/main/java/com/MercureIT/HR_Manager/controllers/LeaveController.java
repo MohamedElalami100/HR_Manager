@@ -1,6 +1,7 @@
 package com.MercureIT.HR_Manager.controllers;
 
 import java.security.Principal;
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,9 +14,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.MercureIT.HR_Manager.models.JobApplication;
 import com.MercureIT.HR_Manager.models.Leave;
 import com.MercureIT.HR_Manager.services.LeaveService;
 import com.MercureIT.HR_Manager.services.EmployeeService;
+import com.MercureIT.HR_Manager.services.JobApplicationService;
 
 @Controller
 public class LeaveController {
@@ -24,15 +27,23 @@ public class LeaveController {
 	private LeaveService leaveService;
 	@Autowired
 	private EmployeeService employeeService;
+	@Autowired
+	private JobApplicationService jobApplicationService;
 	
 	
 	@GetMapping("/leaves")
 	public String getLeaves(Model model, Principal principal) {
 		String username = principal.getName();
+	    List<Leave> pendingLeaves = leaveService.getPendingLeaves();
+	    List<JobApplication> interviews = jobApplicationService.getInterviews();
+	    List<JobApplication> shortlisted = jobApplicationService.getShortlisted();
 		
 		model.addAttribute("employeeUser", employeeService.findByUsername(username));
 		model.addAttribute("leaves", leaveService.getLeaves());
-		model.addAttribute("employees", employeeService.getEmployees());		
+		model.addAttribute("employees", employeeService.getEmployees());
+	    model.addAttribute("pendingLeavesNumber", pendingLeaves.size());
+	    model.addAttribute("interviews", interviews);
+	    model.addAttribute("shortlistedNumber", shortlisted.size());
 
 		return "leave";
 	}

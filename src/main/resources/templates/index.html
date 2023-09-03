@@ -25,6 +25,11 @@
   <link href="assets/vendor/quill/quill.bubble.css" rel="stylesheet">
   <link href="assets/vendor/remixicon/remixicon.css" rel="stylesheet">
   <link href="assets/vendor/simple-datatables/style.css" rel="stylesheet">
+  
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
   <!-- Template Main CSS File -->
   <link href="assets/css/style.css" rel="stylesheet">
@@ -64,12 +69,12 @@
 
           <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown">
             <i class="bi bi-bell"></i>
-            <span class="badge bg-primary badge-number">3</span>
+            <span class="badge bg-primary badge-number" id="notificationNumber"></span>
           </a><!-- End Notification Icon -->
 
           <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow notifications">
             <li class="dropdown-header">
-              You have 3 new notifications
+              You have <span id="notificationNumber2"></span> new notifications
             </li>
             <div id="pendingLeavesDiv">
 	            <li>
@@ -135,7 +140,7 @@
 			<span class="d-none d-md-block dropdown-toggle ps-2" th:text="${#authentication.getPrincipal().getUsername()}">Guest</span>
           </a><!-- End Profile Iamge Icon -->
           
-          <a class="nav-link nav-profile d-flex align-items-center pe-0" th:if="${not employeeUser != null}" href="#" data-bs-toggle="dropdown">
+          <a class="nav-link nav-profile d-flex align-items-center pe-0" th:if="${employeeUser == null}" href="#" data-bs-toggle="dropdown">
 			<img th:src="@{'assets/img/man_user_man.png'}" class="rounded-circle" width="40" height="40" alt="imge">           
 			<span class="d-none d-md-block dropdown-toggle ps-2" th:text="${#authentication.getPrincipal().getUsername()}">Guest</span>
           </a>
@@ -586,6 +591,7 @@
 
   <!-- Template Main JS File -->
   <script src="assets/js/main.js"></script>
+  <script src="assets/js/notification.js"></script>
   
   <script>
 	const thisYearSpan = document.getElementById('thisYearSpan');

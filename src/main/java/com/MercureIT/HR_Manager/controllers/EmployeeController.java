@@ -6,6 +6,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.security.Principal;
 import java.util.Date;
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -23,9 +24,13 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.MercureIT.HR_Manager.models.Employee;
+import com.MercureIT.HR_Manager.models.JobApplication;
+import com.MercureIT.HR_Manager.models.Leave;
 import com.MercureIT.HR_Manager.services.EmployeeService;
 import com.MercureIT.HR_Manager.services.EmployeeTypeService;
+import com.MercureIT.HR_Manager.services.JobApplicationService;
 import com.MercureIT.HR_Manager.services.JobTitleService;
+import com.MercureIT.HR_Manager.services.LeaveService;
 
 
 @Controller
@@ -37,15 +42,25 @@ public class EmployeeController {
 	private JobTitleService jobTitleService;
 	@Autowired
 	private EmployeeTypeService employeeTypeService;
+	@Autowired
+	private LeaveService leaveService;
+	@Autowired
+	private JobApplicationService jobApplicationService;
 	
 	@GetMapping("/employees")
 	public String getEmployees(Model model, Principal principal) {
 		String username = principal.getName();
+	    List<Leave> pendingLeaves = leaveService.getPendingLeaves();
+	    List<JobApplication> interviews = jobApplicationService.getInterviews();
+	    List<JobApplication> shortlisted = jobApplicationService.getShortlisted();
 		
 		model.addAttribute("employeeUser", employeeService.findByUsername(username));
 		model.addAttribute("employees", employeeService.getEmployees());
 		model.addAttribute("jobTitles", jobTitleService.getJobTitles());
 		model.addAttribute("employeeTypes", employeeTypeService.getEmployeeTypes());
+	    model.addAttribute("pendingLeavesNumber", pendingLeaves.size());
+	    model.addAttribute("interviews", interviews);
+	    model.addAttribute("shortlistedNumber", shortlisted.size());
 
 		return "employee";
 	}

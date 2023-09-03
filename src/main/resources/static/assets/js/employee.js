@@ -12,15 +12,13 @@ $('document').ready(function(){
 			$('#socialSecurityNumberEdit').val(employee.socialSecurityNumber);
 			$('#genderEdit').val(employee.gender);
 			$('#maritalStatusEdit').val(employee.maritalStatus);
-			$('#dateOfBirthEdit').val(employee.dateOfBirth?.substring(0,8) +
-				 employee.dateOfBirth?.substring(11,13));
+			$('#dateOfBirthEdit').val(employee.dateOfBirth?.substring(0,10));
 			$('#cityEdit').val(employee.city);
 			$('#addressEdit').val(employee.address);
 			$('#phoneEdit').val(employee.phone);
 			$('#mobileEdit').val(employee.mobile);
 			$('#emailEdit').val(employee.email);
-			$('#hireDateEdit').val(employee.hireDate?.substring(0,8) +
-				employee.hireDate?.substring(11,13));
+			$('#hireDateEdit').val(employee.hireDate?.substring(0,10));
 			$('#jobTitleEdit').val(employee.jobtitleid);
 			$('#employeeTypeEdit').val(employee.employeetypeid);
 			$('#photoEdit').val(employee.photo);
@@ -42,15 +40,13 @@ $('document').ready(function(){
 			$('#socialSecurityNumberDetails').text(employee.socialSecurityNumber);
 			$('#genderDetails').text(employee.gender);
 			$('#maritalStatusDetails').text(employee.maritalStatus);
-			$('#dateOfBirthDetails').text(employee.dateOfBirth?.substring(0,8) +
-				 employee.dateOfBirth?.substring(11,13));
+			$('#dateOfBirthDetails').text(employee.dateOfBirth?.substring(0,10));
 			$('#cityDetails').text(employee.city);
 			$('#addressDetails').text(employee.address);
 			$('#phoneDetails').text(employee.phone);
 			$('#mobileDetails').text(employee.mobile);
 			$('#emailDetails').text(employee.email);
-			$('#hireDateDetails').text(employee.hireDate?.substring(0,8) +
-				employee.hireDate?.substring(11,13));
+			$('#hireDateDetails').text(employee.hireDate?.substring(0,10));
 			$('#jobTitleDetails').text(employee.jobTitle.name);
 			$('#jobTitleDetailsHeader').text(employee.jobTitle.name);
 			$('#employeeTypeDetails').text(employee.employeeType.name);

@@ -8,17 +8,15 @@ $('document').ready(function(){
 		$.get(href, function(leave, status){
 			let leaveStatus;
 			switch(leave.status){
-				case "Pending": leaveStatus = "0";
-				case "Approved": leaveStatus = "1";
+				case "Pending": leaveStatus = "0"; break;
+				case "Approved": leaveStatus = "1"; break;
 				case "Rejected": leaveStatus = "2";
 			}
 			
 			$('#idEdit').val(leave.id);
 			$('#employeeEdit').val(leave.employee.id);
-			$('#startDateEdit').val(leave.startDate?.substring(0,8) +
-				 leave.startDate?.substring(11,13));
-			$('#endDateEdit').val(leave.endDate?.substring(0,8) +
-				 leave.endDate?.substring(11,13));
+			$('#startDateEdit').val(leave.startDate?.substring(0,10));
+			$('#endDateEdit').val(leave.endDate?.substring(0,10));
 			$('#statusEdit').val(leaveStatus);
 		});
 		

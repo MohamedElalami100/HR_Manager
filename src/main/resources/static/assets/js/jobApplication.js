@@ -9,8 +9,7 @@ $('document').ready(function(){
 			$('#idEdit').val(jobApplication.id);
 			$('#candidateEdit').val(jobApplication.candidateid);
 			$('#vacancyEdit').val(jobApplication.vacancyid);
-			$('#dateEdit').val(jobApplication.date?.substring(0,8) +
-				 jobApplication.date?.substring(11,13));
+			$('#dateEdit').val(jobApplication.date?.substring(0,10));
 			$('#statusEdit').val(jobApplication.status);			
 		});
 		
