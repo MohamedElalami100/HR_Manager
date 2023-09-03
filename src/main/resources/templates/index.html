@@ -122,7 +122,7 @@
 
         <li class="nav-item dropdown pe-3">
 
-          <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
+          <a class="nav-link nav-profile d-flex align-items-center pe-0" th:if="${employeeUser != null}" href="#" data-bs-toggle="dropdown">
             <div th:if="${employeeUser?.getPhoto() != null and not employeeUser.getPhoto().isEmpty()}">
 				<img th:src="@{'assets/img/photos/' + ${employeeUser.getPhoto()}}" class="rounded-circle" width="40" height="40" alt="img">
 			</div>
@@ -136,7 +136,7 @@
           </a><!-- End Profile Iamge Icon -->
 
           <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
-            <li class="dropdown-header">
+            <li class="dropdown-header" th:if="${employeeUser != null}"  >
               <h6 th:text="${employeeUser?.getFirstname() + ' ' + employeeUser?.getLastname() }"></h6>
               <span th:text="${employeeUser?.getJobTitle()?.getName() }"></span>
             </li>
