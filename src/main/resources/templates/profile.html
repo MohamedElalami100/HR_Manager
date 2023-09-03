@@ -128,7 +128,7 @@
 
         <li class="nav-item dropdown pe-3">
 
-          <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
+          <a class="nav-link nav-profile d-flex align-items-center pe-0" th:if="${employeeUser != null}" href="#" data-bs-toggle="dropdown">
             <div th:if="${employeeUser.getPhoto() != null and not employeeUser.getPhoto().isEmpty()}">
 				<img th:src="@{'assets/img/photos/' + ${employeeUser.getPhoto()}}" class="rounded-circle" width="40" height="40" alt="img">
 			</div>
@@ -137,11 +137,17 @@
 			</div>
 			<div th:if="${(employeeUser.getPhoto() == null or employeeUser.getPhoto().isEmpty()) and employeeUser.getGender() == 'Female'}">
 			    <img th:src="@{'assets/img/woman.png'}"  class="rounded-circle" width="40" height="40" alt="imgz">
-			</div>            <span class="d-none d-md-block dropdown-toggle ps-2" th:text="${#authentication.getPrincipal().getUsername()}">Guest</span>
+			</div>            
+			<span class="d-none d-md-block dropdown-toggle ps-2" th:text="${#authentication.getPrincipal().getUsername()}">Guest</span>
           </a><!-- End Profile Iamge Icon -->
 
+          <a class="nav-link nav-profile d-flex align-items-center pe-0" th:if="${not employeeUser != null}" href="#" data-bs-toggle="dropdown">
+			<img th:src="@{'assets/img/man_user_man.png'}" class="rounded-circle" width="40" height="40" alt="imge">           
+			<span class="d-none d-md-block dropdown-toggle ps-2" th:text="${#authentication.getPrincipal().getUsername()}">Guest</span>
+          </a>
+
            <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
-            <li class="dropdown-header">
+            <li class="dropdown-header" th:if="${employeeUser != null}">
               <h6 th:text="${employeeUser?.getFirstname() + ' ' + employeeUser?.getLastname() }"></h6>
               <span th:text="${employeeUser?.getJobTitle()?.getName() }"></span>
             </li>
@@ -309,20 +315,26 @@
       <div class="row">
         <div class="col-xl-4">
 
-          <div class="card">
+          <div class="card" th:if="${employeeUser != null}">
             <div class="card-body profile-card pt-4 d-flex flex-column align-items-center">
-
-            <div th:if="${employeeUser.getPhoto() != null and not employeeUser.getPhoto().isEmpty()}">
-				<img th:src="@{'assets/img/photos/' + ${employeeUser.getPhoto()}}" class="rounded-circle" alt="img">
-			</div>
-			<div th:if="${(employeeUser.getPhoto() == null or employeeUser.getPhoto().isEmpty()) and employeeUser.getGender() == 'Male'}">
-			    <img th:src="@{'assets/img/man_user_man.png'}" class="rounded-circle" width="40" height="40" alt="imge">
-			</div>
-			<div th:if="${(employeeUser.getPhoto() == null or employeeUser.getPhoto().isEmpty()) and employeeUser.getGender() == 'Female'}">
-			    <img th:src="@{'assets/img/woman.png'}"  class="rounded-circle" width="40" height="40" alt="imgz">
-			</div>
-		      <h5 th:text="${employeeUser?.getFirstname()} + ' ' + ${employeeUser?.getLastname()} "></h5>
-              <p th:text="${employeeUser.getJobTitle().getName()}"></p>
+	            <div th:if="${employeeUser.getPhoto() != null and not employeeUser.getPhoto().isEmpty()}">
+					<img th:src="@{'assets/img/photos/' + ${employeeUser.getPhoto()}}" class="rounded-circle" alt="img">
+				</div>
+				<div th:if="${(employeeUser.getPhoto() == null or employeeUser.getPhoto().isEmpty()) and employeeUser.getGender() == 'Male'}">
+				    <img th:src="@{'assets/img/man_user_man.png'}" class="rounded-circle" width="40" height="40" alt="imge">
+				</div>
+				<div th:if="${(employeeUser.getPhoto() == null or employeeUser.getPhoto().isEmpty()) and employeeUser.getGender() == 'Female'}">
+				    <img th:src="@{'assets/img/woman.png'}"  class="rounded-circle" width="40" height="40" alt="imgz">
+				</div>
+			      <h5 th:text="${employeeUser?.getFirstname()} + ' ' + ${employeeUser?.getLastname()} "></h5>
+	              <p th:text="${employeeUser.getJobTitle().getName()}"></p>
+            </div>
+          </div>
+          
+          <div class="card" th:if="${not employeeUser != null}">
+            <div class="card-body profile-card pt-4 d-flex flex-column align-items-center">
+				<img th:src="@{'assets/img/man_user_man.png'}" class="rounded-circle" alt="img">
+			      <h5 th:text="${#authentication.getPrincipal().getFirstname()} + ' ' + ${#authentication.getPrincipal().getLastname()} "></h5>
             </div>
           </div>
 
@@ -354,7 +366,7 @@
               </ul>
               <div class="tab-content pt-2">
 
-                <div class="tab-pane fade show active profile-overview" id="profile-overview">
+                <div class="tab-pane fade show active profile-overview" id="profile-overview" th:if="${employeeUser != null}">
                   
                   <h5 class="card-title">Profile Details</h5>
 
@@ -415,14 +427,89 @@
 					
 					<div class="row">
 					  <div class="col-lg-3 col-md-4 label" style="color: #01297099; font-weight: 600;">Job Title</div>
-					  <div class="col-lg-9 col-md-8" th:text="${employeeUser.getJobTitle().getName()}"></div>
+					  <div class="col-lg-9 col-md-8" th:text="${employeeUser.getJobTitle()?.getName()}"></div>
 					</div>
 					
 					<div class="row">
 					  <div class="col-lg-3 col-md-4 label" style="color: #01297099; font-weight: 600;">Type</div>
-					  <div class="col-lg-9 col-md-8" th:text="${employeeUser.getEmployeeType().getName()}"></div>
+					  <div class="col-lg-9 col-md-8" th:text="${employeeUser.getEmployeeType()?.getName()}"></div>
 					</div>
                 </div>
+                
+                <div class="tab-pane fade show active profile-overview" id="profile-overview" th:if="${not employeeUser != null}">
+                  
+                  <h5 class="card-title">Profile Details</h5>
+
+	                <div class="row">
+	                  <div class="col-lg-3 col-md-4 label ">Full Name</div>
+	                  <div class="col-lg-9 col-md-8" th:text="${#authentication.getPrincipal().getFirstname()} + ' ' + ${#authentication.getPrincipal().getLastname()}"></div>
+	                </div>
+
+					<div class="row">
+					  <div class="col-lg-3 col-md-4 label" style="color: #01297099; font-weight: 600;">Username</div>
+					  <div class="col-lg-9 col-md-8" th:text="${#authentication.getPrincipal().getUsername()}"></div>
+					</div>
+					
+					<div class="row">
+					  <div class="col-lg-3 col-md-4 label" style="color: #01297099; font-weight: 600;">S.S.N</div>
+					  <div class="col-lg-9 col-md-8"></div>
+					</div>
+					
+					<div class="row">
+					  <div class="col-lg-3 col-md-4 label" style="color: #01297099; font-weight: 600;">Gender</div>
+					  <div class="col-lg-9 col-md-8" ></div>
+					</div>
+					
+					<div class="row">
+					  <div class="col-lg-3 col-md-4 label" style="color: #01297099; font-weight: 600;">Marital Status</div>
+					  <div class="col-lg-9 col-md-8" ></div>
+					</div>
+					
+					<div class="row">
+					  <div class="col-lg-3 col-md-4 label" style="color: #01297099; font-weight: 600;">Address</div>
+					  <div class="col-lg-9 col-md-8"></div>
+					</div>
+					
+					<div class="row">
+					  <div class="col-lg-3 col-md-4 label" style="color: #01297099; font-weight: 600;">City</div>
+					  <div class="col-lg-9 col-md-8" ></div>
+					</div>
+					
+					<div class="row">
+					  <div class="col-lg-3 col-md-4 label" style="color: #01297099; font-weight: 600;">Phone</div>
+					  <div class="col-lg-9 col-md-8"></div>
+					</div>
+					
+					<div class="row">
+					  <div class="col-lg-3 col-md-4 label" style="color: #01297099; font-weight: 600;">Mobile</div>
+					  <div class="col-lg-9 col-md-8"></div>
+					</div>
+					
+					<div class="row">
+					  <div class="col-lg-3 col-md-4 label" style="color: #01297099; font-weight: 600;">Email</div>
+					  <div class="col-lg-9 col-md-8"></div>
+					</div>
+					
+					<div class="row">
+					  <div class="col-lg-3 col-md-4 label" style="color: #01297099; font-weight: 600;">Birthdate</div>
+					  <div class="col-lg-9 col-md-8"></div>
+					</div>
+					
+					<div class="row">
+					  <div class="col-lg-3 col-md-4 label" style="color: #01297099; font-weight: 600;">Hire Date</div>
+					  <div class="col-lg-9 col-md-8"></div>
+					</div>
+					
+					<div class="row">
+					  <div class="col-lg-3 col-md-4 label" style="color: #01297099; font-weight: 600;">Job Title</div>
+					  <div class="col-lg-9 col-md-8" ></div>
+					</div>
+					
+					<div class="row">
+					  <div class="col-lg-3 col-md-4 label" style="color: #01297099; font-weight: 600;">Type</div>
+					  <div class="col-lg-9 col-md-8"></div>
+					</div>
+                </div>               
 
                 <div class="tab-pane fade profile-edit pt-3" id="profile-edit">
 
