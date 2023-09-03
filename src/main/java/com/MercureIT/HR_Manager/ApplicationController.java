@@ -28,8 +28,7 @@ public class ApplicationController {
 	@Autowired
 	private JobApplicationService jobApplicationService;
 	
-	@GetMapping("/index")
-	public String goHome(Model model, Principal principal) {
+	private void populateModel(Model model, Principal principal) {
 		String username = principal.getName();
 		// Load all necessary data before rendering the view
 	    Employee employeeUser = employeeService.findByUsername(username);
@@ -53,6 +52,19 @@ public class ApplicationController {
 	    model.addAttribute("shortlistedNumber", shortlisted.size());
 		model.addAttribute("employeesByJobs", employeesNbrByJobs);
 		model.addAttribute("employeesByEmployeeType", employeesNbrByStatus);
+		
+	}
+	
+	@GetMapping("/index")
+	public String goHome(Model model, Principal principal) {
+		populateModel(model, principal);
+
+		return "index";
+	}
+	
+	@GetMapping("")
+	public String home(Model model, Principal principal) {
+		populateModel(model, principal);
 
 		return "index";
 	}
