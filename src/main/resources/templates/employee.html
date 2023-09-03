@@ -1,0 +1,783 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+  <meta content="" name="description">
+  <meta content="" name="keywords">
+
+  <!-- Favicons -->
+  <link href="assets/img/favicon.png" rel="icon">
+  <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.gstatic.com" rel="preconnect">
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
+  <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+  <link href="assets/vendor/quill/quill.snow.css" rel="stylesheet">
+  <link href="assets/vendor/quill/quill.bubble.css" rel="stylesheet">
+  <link href="assets/vendor/remixicon/remixicon.css" rel="stylesheet">
+  <link href="assets/vendor/simple-datatables/style.css" rel="stylesheet">
+  
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<body>
+
+  <!-- Template Main CSS File -->
+  <link href="assets/css/style.css" rel="stylesheet">
+
+  <!-- =======================================================
+  * Template Name: NiceAdmin
+  * Updated: Jul 27 2023 with Bootstrap v5.3.1
+  * Template URL: https://bootstrapmade.com/nice-admin-bootstrap-admin-html-template/
+  * Author: BootstrapMade.com
+  * License: https://bootstrapmade.com/license/
+  ======================================================== -->
+</head>
+
+<body>
+
+  <!-- ======= Header ======= -->
+  <header id="header" class="header fixed-top d-flex align-items-center">
+
+    <div class="d-flex align-items-center justify-content-between">
+      <a href="index.html" class="logo d-flex align-items-center">
+        <img src="assets/img/logo.png" alt="">
+        <span class="d-none d-lg-block">HR Manager</span>
+      </a>
+      <i class="bi bi-list toggle-sidebar-btn"></i>
+    </div><!-- End Logo -->
+
+    <nav class="header-nav ms-auto">
+      <ul class="d-flex align-items-center">
+
+        <li class="nav-item d-block d-lg-none">
+          <a class="nav-link nav-icon search-bar-toggle " href="#">
+            <i class="bi bi-search"></i>
+          </a>
+        </li><!-- End Search Icon-->
+
+        <li class="nav-item dropdown">
+
+          <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown">
+            <i class="bi bi-bell"></i>
+            <span class="badge bg-primary badge-number">4</span>
+          </a><!-- End Notification Icon -->
+
+ 
+          <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow notifications">
+            <li class="dropdown-header">
+              You have 3 new notifications
+            </li>
+            <div id="pendingLeavesDiv">
+	            <li>
+	              <hr class="dropdown-divider">
+	            </li>
+	
+	            <li class="notification-item">
+	              <i class="bi bi-exclamation-circle text-warning"></i>
+	              <div>
+	                <h4>Leaves</h4>
+	                <p><span id="pendingLeavesNumber" th:text="${pendingLeavesNumber}"></span> Leaves to approve/reject</p>
+	              </div>
+	            </li>				
+			</div>
+
+            <div id="shortlistedDiv">
+	            <li>
+	              <hr class="dropdown-divider">
+	            </li>
+	
+	            <li class="notification-item" id="pendingLeavesLi">
+	              <i class="bi bi-info-circle text-primary"></i>
+	              <div>
+	                <h4>Job Applications</h4>
+	                <p><span id="shortlistedNumber" th:text="${shortlistedNumber}"></span> Shortlisted Candidates </p>
+	              </div>
+	            </li>
+            </div>
+            
+            <div id="interviewsDiv">
+	            <li>
+	              <hr class="dropdown-divider">
+	            </li>
+	
+	            <li class="notification-item">
+	              <i class="bi bi-info-circle text-primary"></i>
+	              <div>
+	                <h4>Interviews</h4>
+	                <p><span id="interviews" th:text="${interviews?.size()}"></span> Scheduled Inteviews</p>
+	              </div>
+	            </li>
+            </div>
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+
+          </ul><!-- End Notification Dropdown Items -->
+
+        </li><!-- End Notification Nav -->
+
+ 
+
+        <li class="nav-item dropdown pe-3">
+
+          <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
+            <div th:if="${employeeUser.getPhoto() != null and not employeeUser.getPhoto().isEmpty()}">
+				<img th:src="@{'assets/img/photos/' + ${employeeUser.getPhoto()}}" class="rounded-circle" width="40" height="40" alt="img">
+			</div>
+			<div th:if="${(employeeUser.getPhoto() == null or employeeUser.getPhoto().isEmpty()) and employeeUser.getGender() == 'Male'}">
+			    <img th:src="@{'assets/img/man_user_man.png'}" class="rounded-circle" width="40" height="40" alt="imge">
+			</div>
+			<div th:if="${(employeeUser.getPhoto() == null or employeeUser.getPhoto().isEmpty()) and employeeUser.getGender() == 'Female'}">
+			    <img th:src="@{'assets/img/woman.png'}"  class="rounded-circle" width="40" height="40" alt="imgz">
+			</div>
+            <span class="d-none d-md-block dropdown-toggle ps-2" th:text="${#authentication.getPrincipal().getUsername()}">Guest</span>
+          </a><!-- End Profile Iamge Icon -->
+
+         <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
+            <li class="dropdown-header">
+              <h6 th:text="${employeeUser?.getFirstname() + ' ' + employeeUser?.getLastname() }"></h6>
+              <span th:text="${employeeUser?.getJobTitle()?.getName() }"></span>
+            </li>
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+
+            <li>
+              <a class="dropdown-item d-flex align-items-center" th:href="@{/profile}">
+                <i class="bi bi-person"></i>
+                <span>My Profile</span>
+              </a>
+            </li>
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+
+            <li>
+              <a class="dropdown-item d-flex align-items-center" th:href="@{/profile}">
+                <i class="bi bi-gear"></i>
+                <span>Account Settings</span>
+              </a>
+            </li>
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+
+            <li>
+              <a class="dropdown-item d-flex align-items-center" th:href="@{/faq}">
+                <i class="bi bi-question-circle"></i>
+                <span>Need Help?</span>
+              </a>
+            </li>
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+
+            <li>
+              <a class="dropdown-item d-flex align-items-center" th:href="@{/logout}">
+                <i class="bi bi-box-arrow-right"></i>
+                <span>Sign Out</span>
+              </a>
+            </li>
+
+          </ul><!-- End Profile Dropdown Items -->
+        </li><!-- End Profile Nav -->
+
+      </ul>
+    </nav><!-- End Icons Navigation -->
+
+  </header><!-- End Header -->
+
+ <!-- ======= Sidebar ======= -->
+  <aside id="sidebar" class="sidebar">
+
+    <ul class="sidebar-nav" id="sidebar-nav">
+
+      <li class="nav-item">
+        <a class="nav-link collapsed" th:href="@{/index}">
+          <i class="bi bi-grid"></i>
+          <span>Dashboard</span>
+        </a>
+      </li>
+
+      <li class="nav-item">
+        <a class="nav-link" th:href="@{/employees}">
+		  <i class="bi bi-people"></i>
+          <span>Employees</span>
+        </a>
+      </li>
+      
+      <li class="nav-item">
+        <a class="nav-link collapsed" th:href="@{/leaves}">
+          <i class="bi bi-calendar-event"></i>
+          <span>Leaves</span>
+        </a>
+      </li>
+      
+      <li class="nav-item">
+        <a class="nav-link collapsed" th:href="@{/payments}">
+          <i class="bi bi-cash"></i>
+          <span>Payments</span>
+        </a>
+      </li>
+	  
+	  <li class="nav-item">
+        <a class="nav-link collapsed" data-bs-target="#icons-nav1" data-bs-toggle="collapse" href="#">
+          <i class="bi bi-person-plus"></i><span>Recruitement</span><i class="bi bi-chevron-down ms-auto"></i>
+        </a>
+        <ul id="icons-nav1" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+          <li>
+            <a th:href="@{/vacancies}">
+              <i class="bi bi-circle"></i><span>Vacancies</span>
+            </a>
+          </li>
+          <li>
+            <a th:href="@{/jobapplications}">
+              <i class="bi bi-circle"></i><span>Applications</span>
+            </a>
+          </li>
+        </ul>
+      </li>
+      	  
+	  <li class="nav-item">
+        <a class="nav-link collapsed" data-bs-target="#icons-nav2" data-bs-toggle="collapse" href="#">
+          <i class="bi bi-gear"></i><span>Configuration</span><i class="bi bi-chevron-down ms-auto"></i>
+        </a>
+        <ul id="icons-nav2" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+          <li>
+            <a th:href="@{/jobtitles}">
+              <i class="bi bi-circle"></i><span>Job Titles</span>
+            </a>
+          </li>
+          <li>
+            <a th:href="@{/employeetypes}">
+              <i class="bi bi-circle"></i><span>Employee Types</span>
+            </a>
+          </li>
+        </ul>
+      </li>
+      
+      <li class="nav-item">
+	    <hr class="dropdown-divider">
+	  </li>    
+      
+      <li class="nav-item">
+        <a class="nav-link collapsed" th:href="@{/profile}">
+          <i class="bi bi-person"></i>
+          <span>My Profile</span>
+        </a>
+      </li>
+
+      <li class="nav-item">
+        <a class="nav-link collapsed" th:href="@{/faq}">
+          <i class="bi bi-question-circle"></i>
+          <span>F.A.Q</span>
+        </a>
+      </li>
+      
+      <li class="nav-item">
+        <a class="nav-link collapsed" th:href="@{/user}">
+          <i class="bi bi-speedometer2"></i>
+          <span>Admin Panel</span>
+        </a>
+      </li>
+
+    </ul>
+
+  </aside><!-- End Sidebar-->
+
+
+  <main id="main" class="main">
+
+    <div class="pagetitle">
+      <h1>Employees</h1>
+      <nav>
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a th:href="@{/index}">Home</a></li>
+          <li class="breadcrumb-item active">Employees</li>
+        </ol>
+      </nav>
+    </div><!-- End Page Title -->
+
+    <section class="section">
+      <div class="row">
+        <div class="col-lg-12">
+		  <button type="button" class="btn btn-primary mb-3" data-toggle="modal" data-target="#addModal" data-whatever="@mdo">
+			  <i class="bi bi-plus-circle"></i> New Employee
+		  </button>
+		<div class="card">
+            <div class="card-body">
+              <!-- Table with stripped rows -->
+				<table class="table datatable">
+				    <thead>
+				        <tr>
+				            <th scope="col">id</th>
+				            <th scope="col">Picture</th>
+				            <th scope="col">Username</th>
+				            <th scope="col">Full Name</th>
+				            <th scope="col">Position</th>
+				            <th scope="col">Type</th>
+				            <th scope="col">Hire Date</th>
+				            <th scope="col">Actions</th>
+				        </tr>
+				    </thead>
+				    <tbody>
+				        <tr th:each="employee : ${employees}">
+				            <th scope="row" th:text="${employee.getId()}"></th>
+							<td th:if="${employee.getPhoto() != null and not employee.getPhoto().isEmpty()}">
+							    <a id="photoButton" th:href="@{'assets/img/photos/' + ${employee.getPhoto()}}">
+							        <img th:src="@{'assets/img/photos/' + ${employee.getPhoto()}}" class="rounded-circle" width="40" height="40" alt="img">
+							    </a>
+							</td>
+							<td th:if="${(employee.getPhoto() == null or employee.getPhoto().isEmpty()) and employee.getGender() == 'Male'}">
+							    <img th:src="@{'assets/img/man_user_man.png'}" class="rounded-circle" width="40" height="40" alt="imge">
+							</td>
+							<td th:if="${(employee.getPhoto() == null or employee.getPhoto().isEmpty()) and employee.getGender() == 'Female'}">
+							    <img th:src="@{'assets/img/woman.png'}"  class="rounded-circle" width="40" height="40" alt="imgz">
+							</td>							
+							<td><a th:text="${employee.getUsername()} ?: 'Check'" th:href="@{/employees/assignusername(id=${employee.getId()})}"></a></td>	
+				            <td th:text="${employee.getFirstname + ' ' + employee.getLastname}"></td>
+				            <td th:text="${employee.getJobTitle?.getName()}"></td>
+				            <td th:text="${employee.getEmployeeType?.getName()}"></td>
+				            <td th:text="${#dates.format(employee.getHireDate, 'yyyy-MM-dd')}"></td>
+				            <td>
+				              	<div class="btn-group">
+								  <a class="btn btn-primary" id="editButton" th:href="@{/employees/findbyid(id=${employee.getId()})}">
+								    <i class="bi bi-pencil-fill"></i> 
+								  </a>
+								  <a class="btn btn-secondary" id="detailsButton" th:href="@{/employees/findbyid(id=${employee.getId()})}">
+								    <i class="bi bi-info-circle-fill"></i> 
+								  </a>								  
+								  <a class="btn btn-danger" id="deleteButton" th:href="@{/employees/delete(id=${employee.getId()})}">
+								    <i class="bi bi-trash-fill"></i> 
+								  </a>
+								</div> 
+				            </td>
+				        </tr>
+				    </tbody>
+				</table>
+
+
+              <!-- End Table with stripped rows -->
+
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+  </main><!-- End #main -->
+
+  <!-- ======= Footer ======= -->
+  <footer id="footer" >
+    <div class="credits">
+      <!-- All the links in the footer should remain intact. -->
+      <!-- You can delete the links only if you purchased the pro version. -->
+      <!-- Licensing information: https://bootstrapmade.com/license/ -->
+      <!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/nice-admin-bootstrap-admin-html-template/ -->
+      <a href="https://bootstrapmade.com/"></a>
+    </div>
+  </footer><!-- End Footer -->
+  
+  <div class="modal fade bd-example-modal-lg" id="addModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">New Employee</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form th:action="@{/employees/addnew}" method="post" enctype="multipart/form-data">
+					<table width="100%">
+						<tr>
+							<td width="50%">
+			                    <div class="form-group">
+			                        <label for="firstname" class="col-form-label">First Name:</label>
+			                        <input type="text" class="form-control" id="firstname" name="firstname" required>
+			                    </div>
+			                    <div class="form-group">
+			                        <label for="lastname" class="col-form-label">Last Name:</label>
+			                        <input type="text" class="form-control" id="lastname" name="lastname" required>
+			                    </div>
+			                    <div class="form-group">
+			                        <label for="socialSecurityNumber" class="col-form-label">Social Security Number:</label>
+			                        <input type="text" class="form-control" id="socialSecurityNumber" name="socialSecurityNumber">
+			                    </div>
+								<div class="form-group">
+								    <label for="gender" class="col-form-label">Gender:</label>
+								    <select class="form-control" id="gender" name="gender" required>
+								        <option value="Male">Male</option>
+								        <option value="Female">Female</option>
+								    </select>
+								</div>
+			                    <div class="form-group">
+			                        <label for="maritalStatus" class="col-form-label">Marital Status:</label>
+								    <select class="form-control" id="maritalStatus" name="maritalStatus">
+								        <option value="Single">Single</option>
+								        <option value="Married">Married</option>
+								    </select>                    
+								</div>
+			                    <div class="form-group">
+			                        <label for="dateOfBirth" class="col-form-label">Date of Birth:</label>
+			                        <input type="date" class="form-control" id="dateOfBirth" name="dateOfBirth" >
+			                    </div>
+			                    <div class="form-group">
+			                        <label for="photo" class="col-form-label">Photo:</label>
+								    <input type="file" name="photoFile" accept="image/*" id="photo"/>
+			                    </div>
+							</td>
+							<td width="50%">							               
+			                    <div class="form-group">
+			                        <label for="city" class="col-form-label">City:</label>
+			                        <input type="text" class="form-control" id="city" name="city">
+			                    </div>
+			                    <div class="form-group">
+			                        <label for="address" class="col-form-label">Address:</label>
+			                        <input type="text" class="form-control" id="address" name="address">
+			                    </div>
+			                    <div class="form-group">
+			                        <label for="phone" class="col-form-label">Phone:</label>
+			                        <input type="tel" class="form-control" id="phone" name="phone">
+			                    </div>
+			                    <div class="form-group">
+			                        <label for="mobile" class="col-form-label">Mobile:</label>
+			                        <input type="tel" class="form-control" id="mobile" name="mobile">
+			                    </div>
+			                    <div class="form-group">
+			                        <label for="email" class="col-form-label">Email:</label>
+			                        <input type="email" class="form-control" id="email" name="email">
+			                    </div>
+			                    <div class="form-group">
+			                        <label for="hireDate" class="col-form-label">Hire Date:</label>
+			                        <input type="date" class="form-control" id="hireDate" name="hireDate" required> 
+			                    </div>
+			                    <div class="form-group">
+			                        <label for="jobTitle" class="col-form-label">Job Title:</label>
+								    <select class="form-control" id="jobTitle" name="jobtitleid" required>
+								        <option th:each="jobTitle :${jobTitles}"
+								        	th:value="${jobTitle.getId()}"
+								        	th:text="${jobTitle.getName}"
+								        ></option>
+								    </select>                    
+								</div>	
+							</td>
+						</tr>
+					</table>
+					<div class="form-group">
+						<label for="employeeType" class="col-form-label">Employee Type:</label>
+						<select class="form-control" id="employeeType" name="employeetypeid" required>
+							<option th:each="employeeType :${employeeTypes}"
+								th:value="${employeeType.getId()}"
+								th:text="${employeeType.getName}"
+							></option>
+						</select>                    
+					</div>
+		            <div class="form-group">
+		                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+		                <button type="submit" class="btn btn-primary">Submit</button>
+		            </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+  
+ <div class="modal fade bd-example-modal-lg" id="editModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Edit Employee </h5>
+                <button type="button" class="close" onclick="closeModal()" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+				<form th:action="@{/employees/update}" method="post" enctype="multipart/form-data">
+					<table width="100%">
+						<tr>
+							<td width="50%">
+								<div class="form-group">
+			                        <label for="id" class="col-form-label">Id:</label>
+			                        <input type="text" class="form-control" id="idEdit" name="id" readonly>
+			                    </div>
+			                    <div class="form-group">
+			                        <label for="firstname" class="col-form-label">First Name:</label>
+			                        <input type="text" class="form-control" id="firstnameEdit" name="firstname" required>
+			                    </div>
+			                    <div class="form-group">
+			                        <label for="lastname" class="col-form-label">Last Name:</label>
+			                        <input type="text" class="form-control" id="lastnameEdit" name="lastname" required>
+			                    </div>
+			                    <div class="form-group">
+			                        <label for="socialSecurityNumber" class="col-form-label">Social Security Number:</label>
+			                        <input type="text" class="form-control" id="socialSecurityNumberEdit" name="socialSecurityNumber">
+			                    </div>
+								<div class="form-group">
+								    <label for="gender" class="col-form-label">Gender:</label>
+								    <select class="form-control" id="genderEdit" name="gender" required>
+								        <option value="Male">Male</option>
+								        <option value="Female">Female</option>
+								    </select>
+								</div>
+			                    <div class="form-group">
+			                        <label for="maritalStatus" class="col-form-label">Marital Status:</label>
+								    <select class="form-control" id="maritalStatusEdit" name="maritalStatus">
+								        <option value="Single">Single</option>
+								        <option value="Married">Married</option>
+								    </select>                    
+								</div>
+			                    <div class="form-group">
+			                        <label for="dateOfBirth" class="col-form-label">Date of Birth:</label>
+			                        <input type="date" class="form-control" id="dateOfBirthEdit" name="dateOfBirth">
+			                    </div>
+						        <div class="form-group">
+			                        <label for="photo" class="col-form-label">Photo:</label>
+								    <input type="file" name="photoFile" accept="image/*" id="photo"/>
+			                    </div>
+			                   <input type="hidden" id="photoEdit" name="photo">
+							</td>
+							<td width="50%">
+								<div class="form-group">
+			                        <label for="city" class="col-form-label">City:</label>
+			                        <input type="text" class="form-control" id="cityEdit" name="city">
+			                    </div>
+			                    <div class="form-group">
+			                        <label for="address" class="col-form-label">Address:</label>
+			                        <input type="text" class="form-control" id="addressEdit" name="address">
+			                    </div>
+			                    <div class="form-group">
+			                        <label for="phone" class="col-form-label">Phone:</label>
+			                        <input type="tel" class="form-control" id="phoneEdit" name="phone">
+			                    </div>
+			                    <div class="form-group">
+			                        <label for="mobile" class="col-form-label">Mobile:</label>
+			                        <input type="tel" class="form-control" id="mobileEdit" name="mobile">
+			                    </div>
+			                    <div class="form-group">
+			                        <label for="email" class="col-form-label">Email:</label>
+			                        <input type="email" class="form-control" id="emailEdit" name="email">
+			                    </div>
+			                    <div class="form-group">
+			                        <label for="hireDate" class="col-form-label">Hire Date:</label>
+			                        <input type="date" class="form-control" id="hireDateEdit" name="hireDate" required>
+			                    </div>
+			                    <div class="form-group">
+			                        <label for="jobTitle" class="col-form-label">Job Title:</label>
+								    <select class="form-control" id="jobTitleEdit" name="jobtitleid" required>
+								        <option th:each="jobTitle :${jobTitles}"
+								        	th:value="${jobTitle.getId()}"
+								        	th:text="${jobTitle.getName}"
+								        ></option>
+								    </select>                    
+								</div>
+								<div class="form-group">
+			                        <label for="employeeType" class="col-form-label">Employee Type:</label>
+								    <select class="form-control" id="employeeTypeEdit" name="employeetypeid" required>
+								        <option th:each="employeeType :${employeeTypes}"
+								        	th:value="${employeeType.getId()}"
+								        	th:text="${employeeType.getName}"
+								        ></option>
+								    </select>                    
+								</div>
+								<input type="hidden" id="txtUsernameEdit" name="username">
+
+							</td>
+						</tr>
+					</table>					
+                    <div class="form-group">
+			            <button type="button" class="btn btn-secondary" onclick="closeModal()" data-dismiss="modal">Close</button>
+                		<button type="submit" class="btn btn-primary">Submit</button>
+					</div>  
+                </form>
+            </div>
+        </div>
+    </div>
+  </div>
+  
+  <div class="modal fade bd-example-modal-lg" id="detailsModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Employee Details </h5>
+                <button type="button" class="close" onclick="closeModal()" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+				<div class="row">
+			        <div class="col-xl-4">
+			          <div class="card">
+			            <div class="card-body profile-card pt-4 d-flex flex-column align-items-center">
+			
+			              <img src="assets/img/profile-img.jpg" alt="Profile" class="rounded-circle">
+			              <h2 id="fullnameDetailsHeader"></h2>
+			              <h3 id="jobTitleDetailsHeader"></h3>
+			            </div>
+			          </div>
+			        </div>
+
+					<div class="col-xl-8">
+					          <div class="card">
+					            <div class="card-body pt-3">
+					             <div class="tab-content pt-2">
+					                <div class="tab-pane fade show active profile-overview" id="profile-overview">
+					           
+					                  <h5 class="card-title">Profile Details</h5>
+					
+					                  <div class="row">
+					                    <div class="col-lg-5 col-md-4 label " style="color: #01297099;  font-weight: 600;">Full Name</div>
+					                    <div class="col-lg-7 col-md-8" id="fullnameDetails"></div>
+					                  </div>
+					
+					                  <div class="row">
+					                    <div class="col-lg-5 col-md-4 label" style="color: #01297099;  font-weight: 600;">Social Security Number</div>
+					                    <div class="col-lg-7 col-md-8" id="socialSecurityNumberDetails"></div>
+					                  </div>
+					
+					                  <div class="row">
+					                    <div class="col-lg-5 col-md-4 label" style="color: #01297099;  font-weight: 600;">Geander</div>
+					                    <div class="col-lg-7 col-md-8" id="genderDetails"></div>
+					                  </div>
+					
+					                  <div class="row">
+					                    <div class="col-lg-5 col-md-4 label" style="color: #01297099;  font-weight: 600;">Marital Status</div>
+					                    <div class="col-lg-7 col-md-8" id="maritalStatusDetails"></div>
+					                  </div>
+					
+					                  <div class="row">
+					                    <div class="col-lg-5 col-md-4 label" style="color: #01297099;  font-weight: 600;">Address</div>
+					                    <div class="col-lg-7 col-md-8" id="addressDetails"></div>
+					                  </div>
+
+					                  <div class="row">
+					                    <div class="col-lg-5 col-md-4 label" style="color: #01297099;  font-weight: 600;">City</div>
+					                    <div class="col-lg-7 col-md-8" id="cityDetails"></div>
+					                  </div>
+					                  					
+					                  <div class="row">
+					                    <div class="col-lg-5 col-md-4 label" style="color: #01297099;  font-weight: 600;">Phone</div>
+					                    <div class="col-lg-7 col-md-8" id="phoneDetails"></div>
+					                  </div>
+
+					                  <div class="row">
+					                    <div class="col-lg-5 col-md-4 label" style="color: #01297099;  font-weight: 600;">Mobile</div>
+					                    <div class="col-lg-7 col-md-8" id="mobileDetails"></div>
+					                  </div>
+					                  					
+					                  <div class="row">
+					                    <div class="col-lg-5 col-md-4 label" style="color: #01297099;  font-weight: 600;">Email</div>
+					                    <div class="col-lg-7 col-md-8" id="emailDetails"></div>
+					                  </div>
+					                 
+					                  <div class="row">
+					                    <div class="col-lg-5 col-md-4 label" style="color: #01297099;  font-weight: 600;">Date of Birth</div>
+					                    <div class="col-lg-7 col-md-8" id="dateOfBirthDetails"></div>
+					                  </div>
+					                  
+					                  <div class="row">
+					                    <div class="col-lg-5 col-md-4 label" style="color: #01297099;  font-weight: 600;">Hire Date</div>
+					                    <div class="col-lg-7 col-md-8" id="hireDateDetails"></div>
+					                  </div>
+					                  
+					                  <div class="row">
+					                    <div class="col-lg-5 col-md-4 label" style="color: #01297099;  font-weight: 600;">Job Title</div>
+					                    <div class="col-lg-7 col-md-8" id="jobTitleDetails"></div>
+					                  </div>					                  
+
+					                  <div class="row">
+					                    <div class="col-lg-5 col-md-4 label" style="color: #01297099;  font-weight: 600;">Employee Type</div>
+					                    <div class="col-lg-7 col-md-8" id="employeeTypeDetails"></div>
+					                  </div>					          					                  					                 
+					                </div>
+					             </div>
+					            </div>
+					          </div>
+					</div>
+            </div>
+        </div>
+    </div>
+  </div>
+  </div>
+  
+	<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	  <div class="modal-dialog" role="document">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <h5 class="modal-title" id="exampleModalLabel">Confirm delete</h5>
+	        <button type="button" class="close" onclick="closeModal()" data-dismiss="modal" aria-label="Close">
+	          <span aria-hidden="true">&times;</span>
+	        </button>
+	      </div>
+	      <div class="modal-body">
+	        <p>Are you sure you want to delete this Employee ?</p>
+	      </div>
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-secondary" onclick="closeModal()" data-dismiss="modal">Close</button>
+	        <a class="btn btn-primary" href="" id="confirmDeleteButton">Yes, Delete</a>
+	      </div>
+	    </div>
+	  </div>
+	</div>
+	
+<div class="modal fade" tabindex="-1" role="dialog" id="photoModal">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Photo</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="closeModal()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+      		<img id="employeePhoto" src="" width="95%" height="95%">
+    </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="closeModal()" >Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+  <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
+  <!-- Vendor JS Files -->
+  <script src="assets/vendor/apexcharts/apexcharts.min.js"></script>
+  <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="assets/vendor/chart.js/chart.umd.js"></script>
+  <script src="assets/vendor/echarts/echarts.min.js"></script>
+  <script src="assets/vendor/quill/quill.min.js"></script>
+  <script src="assets/vendor/simple-datatables/simple-datatables.js"></script>
+  <script src="assets/vendor/tinymce/tinymce.min.js"></script>
+  <script src="assets/vendor/php-email-form/validate.js"></script>
+
+  <!-- Template Main JS File -->
+  <script src="assets/js/main.js"></script>
+  <script src="assets/js/employee.js"></script>
+  
+  <script>
+    function closeModal() {
+        $('#editModal').modal('hide');
+        $('#deleteModal').modal('hide');
+        $('#detailsModal').modal('hide');
+        $('#photoModal').modal('hide');
+    }
+  </script>
+
+</body>
+
+</html>
