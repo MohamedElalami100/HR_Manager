@@ -49,7 +49,7 @@
   <header id="header" class="header fixed-top d-flex align-items-center">
 
     <div class="d-flex align-items-center justify-content-between">
-      <a href="index.html" class="logo d-flex align-items-center">
+      <a th:href="@{/index}"  class="logo d-flex align-items-center">
         <img src="assets/img/logo.png" alt="">
         <span class="d-none d-lg-block">HR Manager</span>
       </a>
@@ -69,13 +69,13 @@
 
           <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown">
             <i class="bi bi-bell"></i>
-            <span class="badge bg-primary badge-number">4</span>
+            <span id="notificationNumber" class="badge bg-primary badge-number"></span>
           </a><!-- End Notification Icon -->
 
- 
+  
           <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow notifications">
             <li class="dropdown-header">
-              You have 3 new notifications
+              You have <span id="notificationNumber2"></span>  new notifications
             </li>
             <div id="pendingLeavesDiv">
 	            <li>
@@ -525,6 +525,8 @@
   <!-- Template Main JS File -->
   <script src="assets/js/main.js"></script>
   <script src="assets/js/leave.js"></script>
+  <script src="assets/js/notification.js"></script>
+
   
   <script>
     function closeModal() {
